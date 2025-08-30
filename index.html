@@ -7800,6 +7800,49 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("Система вибрации активирована");
 });
 
+  // Переопределяем функционал окна оформления
+function initCheckoutOverlay() {
+    const checkoutPage = document.querySelector('.checkout-page');
+    if (!checkoutPage) return;
+    
+    // Устанавливаем правильные стили
+    checkoutPage.style.position = 'fixed';
+    checkoutPage.style.top = '0';
+    checkoutPage.style.left = '-100%';
+    checkoutPage.style.width = '100%';
+    checkoutPage.style.height = '100%';
+    checkoutPage.style.background = 'var(--bg-color)';
+    checkoutPage.style.zIndex = '2000';
+    checkoutPage.style.transition = 'left 0.4s cubic-bezier(0.28, 0.11, 0.32, 1)';
+    checkoutPage.style.overflowY = 'auto';
+    checkoutPage.style.padding = '20px';
+    checkoutPage.style.boxSizing = 'border-box';
+    
+    // Обработчики для кнопок
+    const checkoutBtn = document.querySelector('.checkout-btn');
+    const backBtn = document.querySelector('.back-checkout-btn');
+    
+    if (checkoutBtn) {
+        checkoutBtn.onclick = function(e) {
+            e.preventDefault();
+            checkoutPage.classList.add('visible');
+            triggerVibration();
+        };
+    }
+    
+    if (backBtn) {
+        backBtn.onclick = function(e) {
+            e.preventDefault();
+            checkoutPage.classList.remove('visible');
+            triggerVibration();
+        };
+    }
+}
+
+// Вызываем при загрузке
+document.addEventListener('DOMContentLoaded', function() {
+    initCheckoutOverlay();
+});
 </script>
 
 <script>
